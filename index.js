@@ -34,7 +34,7 @@ var upload = multer({
 });
 
 // insert data movies
-app.post('/api/movies', upload.single('image'),(req, res) => {
+app.post('/api/movies', upload.single('foto'),(req, res) => {
     
     // buat variabel penampung data dan query sql
     if (!req.file) {
