@@ -6,7 +6,7 @@ const bodyParsery = require('body-parser');
 const koneksi = require('./config/database');
 const { error } = require('console');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 
 // set body parser
@@ -57,7 +57,7 @@ app.post('/api/movies', upload.single('foto'),(req, res) => {
                 });
     } else {
         console.log(req.file.filename)
-        var imgsrc = 'http://localhost:5000/image/' + req.file.filename
+        var imgsrc = 'http://localhost:4000/image/' + req.file.filename
         // buat variabel penampung data dan query sql
         const data = { ...req.body };
         const querySql = 'INSERT INTO movies (judul,rating,deskripsi,sutradara,foto) values(?,?,?,?,?);';
@@ -108,7 +108,7 @@ app.post('/api/mahasiswa', upload.single('photo'),(req, res) => {
         });
     } else {
         console.log(req.file.filename)
-        var imgsrc = 'http://localhost:5000/photo/' + req.file.filename;
+        var imgsrc = 'http://localhost:4000/photo/' + req.file.filename;
         // buat variabel penampung data dan query sql
         const foto =   imgsrc;
         const data = { ...req.body };
@@ -135,6 +135,7 @@ app.post('/api/mahasiswa', upload.single('photo'),(req, res) => {
 app.get('/api/movies', (req, res) => {
     // buat query sql
     const querySql = 'SELECT * FROM movies';
+    console.log(querySql);
 
     // jalankan query
     koneksi.query(querySql, (err, rows, field) => {
@@ -274,6 +275,7 @@ app.delete('/api/movies/:id', (req, res) => {
     // buat query sql untuk mencari data dan hapus
     const querySearch = 'SELECT * FROM movies WHERE id = ?';
     const queryDelete = 'DELETE FROM movies WHERE id = ?';
+    console.log(queryDelete);
 
     // jalankan query untuk melakukan pencarian data
     koneksi.query(querySearch, req.params.id, (err, rows, field) => {
